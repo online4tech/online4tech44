@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أحمد رمح | مؤسس Online4Tech - خبير أنظمة Enigma2 والحلول الرقمية</title>
+    <meta name="description" content="الموقع الرسمي لأحمد رمح ومنصة Online4Tech. خبراء في أجهزة Vu+, Dreambox، أنظمة Enigma2، السكينات، البلجنات، قوائم القنوات، والحلول التقنية المتقدمة.">
+    
+    <!-- Google Fonts: Cairo & Tajawal -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: {
+                            900: '#070a14',
+                            800: '#0f172a',
+                            700: '#1e293b',
+                            600: '#334155',
+                        },
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Alpine.js for interactivity -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .light .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        .glow-effect {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body x-data="{ 
+    darkMode: true, 
+    mobileMenuOpen: false,
+    activeTab: 'all',
+    notification: false,
+    notificationMsg: '',
+    showToast(msg) {
+        this.notificationMsg = msg;
+        this.notification = true;
+        setTimeout(() => { this.notification = false; }, 4000);
+    }
+}" :class="{ 'dark': darkMode, 'light': !darkMode }" class="bg-dark-900 text-slate-100 min-h-screen selection:bg-brand-500 selection:text-white transition-colors duration-300">
+
+    <!-- Toast Notification -->
+    <div x-cloak x-show="notification" x-transition.origin.top class="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 bg-brand-600 text-white px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-brand-400">
+        <i class="fa-solid fa-circle-check text-xl"></i>
+        <span x-text="notificationMsg" class="font-bold"></span>
+    </div>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/201000000000?text=مرحباً%20أحمد%20رمح،%20أريد%20الاستفسار%20عن%20خدمات%20Online4Tech" target="_blank" class="fixed bottom-6 left-6 z-40 bg-emerald-500 hover:bg-emerald-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl transition-all duration-300 hover:scale-110 hover:shadow-emerald-500/50 group" aria-label="تواصل عبر واتساب">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span class="absolute left-16 bg-slate-900 text-white text-xs font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-150 transition-opacity whitespace-nowrap shadow-xl border border-slate-700">تواصل معنا واتساب</span>
+    </a>
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 right-0 left-0 z-40 glass-card border-b border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo & Brand -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-brand-600 to-cyan-500 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-brand-500/30 group-hover:scale-105 transition-transform">
+                    O4T
+                </div>
+                <div>
+                    <span class="text-xl font-black tracking-wide bg-gradient-to-r from-white via-slate-200 to-brand-400 bg-clip-text text-transparent">Online4Tech</span>
+                    <span class="block text-xs text-brand-400 font-semibold">بواسطة أحمد رمح</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden lg:flex items-center gap-8 font-semibold text-sm text-slate-300">
+                <a href="#about" class="hover:text-brand-400 transition-colors">من نحن</a>
+                <a href="#services" class="hover:text-brand-400 transition-colors">خدماتنا</a>
+                <a href="#products" class="hover:text-brand-400 transition-colors">منتجاتنا</a>
+                <a href="#portfolio" class="hover:text-brand-400 transition-colors">مشاريعنا</a>
+                <a href="#reviews" class="hover:text-brand-400 transition-colors">آراء العملاء</a>
+                <a href="#faq" class="hover:text-brand-400 transition-colors">الأسئلة الشائعة</a>
+                <a href="#contact" class="hover:text-brand-400 transition-colors">تواصل معنا</a>
+            </nav>
+
+            <!-- Actions (Theme Toggle & CTA) -->
+            <div class="flex items-center gap-4">
+                <!-- Theme Switcher -->
+                <button @click="darkMode = !darkMode" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-brand-400 hover:border-brand-500/50 transition-all" aria-label="تغيير المظهر">
+                    <i x-show="darkMode" class="fa-solid fa-sun text-yellow-400 text-lg"></i>
+                    <i x-show="!darkMode" class="fa-solid fa-moon text-brand-600 text-lg"></i>
+                </button>
+
+                <!-- CTA Button -->
+                <a href="#contact" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-brand-600 to-cyan-600 hover:from-brand-500 hover:to-cyan-500 text-white font-bold px-5 py-2.5 rounded-xl shadow-lg shadow-brand-600/30 transition-all transform hover:-translate-y-0.5 text-sm">
+                    <i class="fa-solid fa-headset"></i>
+                    <span>طلب استشارة</span>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden w-10 h-10 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-brand-400">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div x-cloak x-show="mobileMenuOpen" x-transition class="lg:hidden glass-card border-t border-slate-800 px-6 py-6 space-y-4 shadow-2xl">
+            <a @click="mobileMenuOpen = false" href="#about" class="block text-slate-200 hover:text-brand-400 font-semibold py-2">من نحن</a>
+            <a @click="mobileMenuOpen = false" href="#services" class="block text-slate-200 hover:text-brand-400 font-semibold py-2">خدماتنا</a>
+            <a @click="mobileMenuOpen = false" href="#products" class="block text-slate-200 hover:text-brand-400 font-semibold py-2">منتجاتنا</a>
+            <a @click="mobileMenuOpen = false" href="#portfolio" class="block text-slate-200 hover:text-brand-400 font-semibold py-2">مشاريعنا</a>
+            <a @click="mobileMenuOpen = false" href="#reviews" class="block text-slate-200 hover:text-brand-400 font-semibold py-2">آراء العملاء</a>
+            <a @click="mobileMenuOpen = false" href="#faq" class="block text-slate-200 hover:text-brand-400 font-semibold py-2">الأسئلة الشائعة</a>
+            <a @click="mobileMenuOpen = false" href="#contact" class="block text-slate-200 hover:text-brand-400 font-semibold py-2">تواصل معنا</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
+        <div class="glow-effect top-10 right-10"></div>
+        <div class="glow-effect bottom-10 left-10"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Text Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-right">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-brand-500/30 text-brand-400 text-sm font-semibold shadow-lg">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                        <span>مرحباً بكم في الموقع الرسمي • خليك دايماً أونلاين</span>
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+                        مرحباً، أنا <span class="bg-gradient-to-r from-brand-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">أحمد رمح</span>
+                        <span class="block text-2xl sm:text-3xl lg:text-4xl mt-3 font-extrabold text-slate-300">مؤسس Online4Tech وخبير أنظمة Enigma2</span>
+                    </h1>
+                    
+                    <p class="text-slate-300 text-lg sm:text-xl font-normal max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        نقدم أرقى الحلول الاحترافية لأجهزة الاستقبال الفضائي (Vu+, Dreambox)، وأحدث برمجيات Enigma2، البلجنات، السكينات، وقوائم القنوات المخصصة بأعلى معايير الجودة العالمية.
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#services" class="bg-gradient-to-r from-brand-600 to-cyan-600 hover:from-brand-500 hover:to-cyan-500 text-white font-bold px-8 py-4 rounded-2xl shadow-xl shadow-brand-600/30 transition-all transform hover:-translate-y-1 flex items-center gap-3">
+                            <span>اكتشف خدماتنا</span>
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </a>
+                        <a href="https://wa.me/201000000000" target="_blank" class="glass-card hover:bg-slate-800 text-slate-100 font-bold px-8 py-4 rounded-2xl border border-slate-700 transition-all flex items-center gap-3 hover:border-emerald-500/50">
+                            <i class="fa-brands fa-whatsapp text-emerald-400 text-xl"></i>
+                            <span>تواصل عبر واتساب</span>
+                        </a>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="grid grid-cols-3 gap-4 pt-8 border-t border-slate-800/80 max-w-lg mx-auto lg:mx-0">
+                        <div class="text-center lg:text-right">
+                            <div class="text-2xl sm:text-3xl font-black text-brand-400">+10</div>
+                            <div class="text-xs sm:text-sm text-slate-400 font-medium">سنوات خبرة</div>
+                        </div>
+                        <div class="text-center lg:text-right">
+                            <div class="text-2xl sm:text-3xl font-black text-cyan-400">+5000</div>
+                            <div class="text-xs sm:text-sm text-slate-400 font-medium">عميل سعيد</div>
+                        </div>
+                        <div class="text-center lg:text-right">
+                            <div class="text-2xl sm:text-3xl font-black text-emerald-400">100%</div>
+                            <div class="text-xs sm:text-sm text-slate-400 font-medium">دعم احترافي</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Visual / Badge Card -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative w-full aspect-square max-w-md mx-auto">
+                        <!-- Decorative glow -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-brand-600/30 to-cyan-500/30 rounded-3xl blur-2xl"></div>
+                        
+                        <!-- Main Card -->
+                        <div class="relative glass-card rounded-3xl p-8 border border-slate-700/80 shadow-2xl space-y-6">
+                            <div class="flex items-center justify-between pb-6 border-b border-slate-700/60">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-600 to-cyan-500 flex items-center justify-center text-white text-2xl font-black shadow-lg">
+                                        AR
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-black text-white">أحمد رمح</h3>
+                                        <p class="text-xs text-brand-400 font-bold">رائد أعمال تقني & خبير Enigma2</p>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold border border-emerald-500/20">متاح للعمل</span>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/50 border border-slate-700/50">
+                                    <div class="w-10 h-10 rounded-lg bg-brand-600/20 text-brand-400 flex items-center justify-center">
+                                        <i class="fa-solid fa-satellite-dish"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-bold text-white">أجهزة Vu+ & Dreambox</h4>
+                                        <p class="text-xs text-slate-400">حلول ألمانية وكورية متطورة</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/50 border border-slate-700/50">
+                                    <div class="w-10 h-10 rounded-lg bg-cyan-600/20 text-cyan-400 flex items-center justify-center">
+                                        <i class="fa-solid fa-code"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-bold text-white">تطوير سكينات وبليجنات</h4>
+                                        <p class="text-xs text-slate-400">تخصيص كامل لأنظمة Enigma2</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/50 border border-slate-700/50">
+                                    <div class="w-10 h-10 rounded-lg bg-emerald-600/20 text-emerald-400 flex items-center justify-center">
+                                        <i class="fa-solid fa-list-check"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-bold text-white">قوائم قنوات احترافية</h4>
+                                        <p class="text-xs text-slate-400">تحديثات دورية ومنظمة بدقة</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-700/60 flex items-center justify-between text-xs text-slate-400">
+                                <span>Online4Tech Brand</span>
+                                <a href="https://online4tech.github.io/online4Tech/" target="_blank" class="text-brand-400 hover:underline font-bold">زيارة الموقع الرسمي <i class="fa-solid fa-external-link-alt text-[10px]"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section – من نحن -->
+    <section id="about" class="py-20 bg-dark-800/50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-brand-400 text-sm font-bold uppercase tracking-wider px-4 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20">من نحن</span>
+                <h2 class="text-3xl sm:text-4xl font-black">تعرف على مؤسس Online4Tech</h2>
+                <p class="text-slate-300 text-base sm:text-lg">شغف بالتقنية واحترافية متناهية في عالم أجهزة الاستقبال الفضائي وأنظمة Enigma2.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6 space-y-6">
+                    <h3 class="text-2xl sm:text-3xl font-black text-white leading-tight">
+                        نحن ندمج الخبرة التقنية العميقة مع الشغف لتقديم <span class="text-brand-400">أفضل تجربة ترفيه منزلي</span>.
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        أنا <strong class="text-white">أحمد رمح</strong>، مؤسس منصة <strong class="text-brand-400">Online4Tech</strong>. على مدار أكثر من 10 سنوات، تخصصت في تقديم حلول متكاملة لأجهزة الاستقبال الألمانية والكورية المتقدمة مثل Vu+ و Dreambox.
+                    </p>
+                    <p class="text-slate-300 leading-relaxed">
+                        هدفنا الرئيسي هو تمكين المستخدم العربي من استغلال الإمكانات الهائلة لأجهزة Enigma2 عبر توفير السوفتوير المستقر، البلجنات الحصرية، السكينات الأنيقة، وقوائم القنوات المرتبة باحترافية تامة، مع تقديم الدعم الفني المستمر.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-6 pt-4">
+                        <div class="glass-card p-5 rounded-2xl border border-slate-700/60">
+                            <div class="text-brand-400 text-2xl font-black mb-1">Vu+ & Dreambox</div>
+                            <div class="text-xs text-slate-400 font-medium">خبراء الأجهزة الرائدة عالمياً</div>
+                        </div>
+                        <div class="glass-card p-5 rounded-2xl border border-slate-700/60">
+                            <div class="text-cyan-400 text-2xl font-black mb-1">Enigma2 Ecosystem</div>
+                            <div class="text-xs text-slate-400 font-medium">برمجة، سكينات، وبلجنات مخصصة</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-4">
+                            <div class="glass-card p-6 rounded-3xl border border-slate-700/80 text-center space-y-3">
+                                <div class="w-14 h-14 mx-auto rounded-2xl bg-brand-600/20 text-brand-400 flex items-center justify-center text-2xl">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <h4 class="font-bold text-white text-lg">موثوقية تامة</h4>
+                                <p class="text-xs text-slate-400">منتجات وحلول مختارة بعناية لتناسب أعلى معايير الجودة.</p>
+                            </div>
+                            <div class="glass-card p-6 rounded-3xl border border-slate-700/80 text-center space-y-3">
+                                <div class="w-14 h-14 mx-auto rounded-2xl bg-cyan-600/20 text-cyan-400 flex items-center justify-center text-2xl">
+                                    <i class="fa-solid fa-bolt"></i>
+                                </div>
+                                <h4 class="font-bold text-white text-lg">سرعة وأداء</h4>
+                                <p class="text-xs text-slate-400">تحديثات دورية وسرعة فائقة في تلبية طلبات العملاء.</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4 pt-8">
+                            <div class="glass-card p-6 rounded-3xl border border-slate-700/80 text-center space-y-3">
+                                <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-2xl">
+                                    <i class="fa-solid fa-headset"></i>
+                                </div>
+                                <h4 class="font-bold text-white text-lg">دعم فني مستمر</h4>
+                                <p class="text-xs text-slate-400">مرافقة كاملة للعميل بعد الشراء وحل كافة المشكلات التقنية.</p>
+                            </div>
+                            <div class="glass-card p-6 rounded-3xl border border-slate-700/80 text-center space-y-3">
+                                <div class="w-14 h-14 mx-auto rounded-2xl bg-purple-600/20 text-purple-400 flex items-center justify-center text-2xl">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                </div>
+                                <h4 class="font-bold text-white text-lg">ابتكار وتطوير</h4>
+                                <p class="text-xs text-slate-400">أدوات وبرمجيات حصرية تم تطويرها خصيصاً لمجتمع Enigma2.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section – خدماتنا -->
+    <section id="services" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-brand-400 text-sm font-bold uppercase tracking-wider px-4 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20">خدماتنا الاحترافية</span>
+                <h2 class="text-3xl sm:text-4xl font-black">ما نقدمه لعملائنا في Online4Tech</h2>
+                <p class="text-slate-300 text-base sm:text-lg">خدمات متكاملة تغطي كافة احتياجات أجهزة الاستقبال الفضائي وأنظمة Enigma2.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Service 1 -->
+                <div class="glass-card rounded-3xl p-8 border border-slate-700/80 hover:border-brand-500/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-cyan-500 text-white flex items-center justify-center text-2xl mb-6 shadow-lg shadow-brand-500/30 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-tv"></i>
+                    </div>
+                    <h3 class="text-xl font-black text-white mb-3">أجهزة Vu+ و Dreambox</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        توفير وبيع أحدث أجهزة الاستقبال الأصلية الألمانية والكورية مع ضمان الجودة والتشغيل على أحدث الصور الفضائية.
+                    </p>
+                    <a href="#contact" class="inline-flex items-center gap-2 text-brand-400 font-bold text-sm group-hover:gap-3 transition-all">
+                        <span>اطلب الخدمة</span>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="glass-card rounded-3xl p-8 border border-slate-700/80 hover:border-brand-500/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-600 to-blue-500 text-white flex items-center justify-center text-2xl mb-6 shadow-lg shadow-cyan-500/30 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h3 class="text-xl font-black text-white mb-3">برمجة وتحديث Enigma2</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        تثبيت أحدث صور BlackHole, OpenPLi, OpenATV وتجهيز الجهاز بكل الإعدادات المتقدمة لضمان أقصى أداء.
+                    </p>
+                    <a href="#contact" class="inline-flex items-center gap-2 text-cyan-400 font-bold text-sm group-hover:gap-3 transition-all">
+                        <span>اطلب الخدمة</span>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="glass-card rounded-3xl p-8 border border-slate-700/80 hover:border-brand-500/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center text-2xl mb-6 shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-puzzle-piece"></i>
+                    </div>
+                    <h3 class="text-xl font-black text-white mb-3">البلجنات والأدوات</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        تثبيت وتكوين أحدث البلجنات الترفيهية والخدمية (ترجمات، طقس، إيمموات، أدوات تحكم متقدمة) لجهازك.
+                    </p>
+                    <a href="#contact" class="inline-flex items-center gap-2 text-emerald-400 font-bold text-sm group-hover:gap-3 transition-all">
+                        <span>اطلب الخدمة</span>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="glass-card rounded-3xl p-8 border border-slate-700/80 hover:border-brand-500/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-500 text-white flex items-center justify-center text-2xl mb-6 shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-palette"></i>
+                    </div>
+                    <h3 class="text-xl font-black text-white mb-3">السكينات والبيكونات</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        تصميم وتخصيص أجمل السكينات العصرية (Skins) والبيكونات (Picons) الملونة لقنوات الأقمار الصناعية المختلفة.
+                    </p>
+                    <a href="#contact" class="inline-flex items-center gap-2 text-purple-400 font-bold text-sm group-hover:gap-3 transition-all">
+                        <span>اطلب الخدمة</span>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="glass-card rounded-3xl p-8 border border-slate-700/80 hover:border-brand-500/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-600 to-orange-500 text-white flex items-center justify-center text-2xl mb-6 shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+                    <h3 class="text-xl font-black text-white mb-3">السوفت كام (Softcam)</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        تحديث وتثبيت ملفات الشفرات وسيرفرات الشيرنج المدعومة لفتح القنوات المفتوحة والمشفرة بكل استقرار.
+                    </p>
+                    <a href="#contact" class="inline-flex items-center gap-2 text-amber-400 font-bold text-sm group-hover:gap-3 transition-all">
+                        <span>اطلب الخدمة</span>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="glass-card rounded-3xl p-8 border border-slate-700/80 hover:border-brand-500/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-rose-600 to-red-500 text-white flex items-center justify-center text-2xl mb-6 shadow-lg shadow-rose-500/30 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <h3 class="text-xl font-black text-white mb-3">الدعم الفني والصيانة</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        دعم فني مباشر عبر الإنترنت وحل مشاكل التوقف، التعليق، إعادة البرمجة، وإعدادات الشبكة والدايزك.
+                    </p>
+                    <a href="#contact" class="inline-flex items-center gap-2 text-rose-400 font-bold text-sm group-hover:gap-3 transition-all">
+                        <span>اطلب الخدمة</span>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section – منتجاتنا -->
+    <section id="products" class="py-20 bg-dark-800/50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-brand-400 text-sm font-bold uppercase tracking-wider px-4 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20">منتجات مميزة</span>
+                <h2 class="text-3xl sm:text-4xl font-black">منتجات Online4Tech المختارة بعناية</h2>
+                <p class="text-slate-300 text-base sm:text-lg">أقوى أجهزة الرسيفر والحلول البرمجية معتمدة ومضمونة من أحمد رمح.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Product 1 -->
+                <div class="glass-card rounded-3xl overflow-hidden border border-slate-700/80 flex flex-col justify-between group hover:border-brand-500/50 transition-all">
+                    <div>
+                        <div class="relative aspect-video bg-slate-900 overflow-hidden flex items-center justify-center border-b border-slate-800">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-brand-600/20 to-cyan-600/20 group-hover:scale-105 transition-transform"></div>
+                            <i class="fa-solid fa-satellite text-6xl text-brand-400/80"></i>
+                            <span class="absolute top-4 right-4 bg-brand-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">الأكثر مبيعاً</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-brand-400 font-bold uppercase">Vu+ Series</span>
+                                <span class="text-emerald-400 font-black text-lg">طلب عبر واتساب</span>
+                            </div>
+                            <h3 class="text-xl font-black text-white">Vu+ Duo 4K SE</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                الجهاز الأسطوري بمعالج قوي، دعم كامل لصور Enigma2، تدفق 4K فائق الوضوح، ومنافذ CI+ متعددة.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <a href="https://wa.me/201000000000?text=مرحباً%20أحمد%20رمح،%20أريد%20الاستفسار%20عن%20سعر%20ومواصفات%20Vu+%20Duo%204K%20SE" target="_blank" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>استفسر عن السعر</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="glass-card rounded-3xl overflow-hidden border border-slate-700/80 flex flex-col justify-between group hover:border-brand-500/50 transition-all">
+                    <div>
+                        <div class="relative aspect-video bg-slate-900 overflow-hidden flex items-center justify-center border-b border-slate-800">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-cyan-600/20 to-blue-600/20 group-hover:scale-105 transition-transform"></div>
+                            <i class="fa-solid fa-box-archive text-6xl text-cyan-400/80"></i>
+                            <span class="absolute top-4 right-4 bg-cyan-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">ألماني أصلي</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-cyan-400 font-bold uppercase">Dreambox Series</span>
+                                <span class="text-emerald-400 font-black text-lg">طلب عبر واتساب</span>
+                            </div>
+                            <h3 class="text-xl font-black text-white">Dreambox ONE 4K</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                قوة الأداء الألماني بمعالج سداسي النواة، نظام تشغيل Enigma2 & Android، وتصميم عصري أنيق.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <a href="https://wa.me/201000000000?text=مرحباً%20أحمد%20رمح،%20أريد%20الاستفسار%20عن%20سعر%20ومواصفات%20Dreambox%20ONE%204K" target="_blank" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>استفسر عن السعر</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="glass-card rounded-3xl overflow-hidden border border-slate-700/80 flex flex-col justify-between group hover:border-brand-500/50 transition-all">
+                    <div>
+                        <div class="relative aspect-video bg-slate-900 overflow-hidden flex items-center justify-center border-b border-slate-800">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-emerald-600/20 to-teal-600/20 group-hover:scale-105 transition-transform"></div>
+                            <i class="fa-solid fa-sliders text-6xl text-emerald-400/80"></i>
+                            <span class="absolute top-4 right-4 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">خدمة حصرية</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-emerald-400 font-bold uppercase">Custom Software</span>
+                                <span class="text-emerald-400 font-black text-lg">حسب الطلب</span>
+                            </div>
+                            <h3 class="text-xl font-black text-white">تجهيز وبرمجة Enigma2 شاملة</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                إعداد كامل للجهاز، تحديث الصور، تثبيت أحدث البلجنات والسكينات، وقوائم قنوات مرتبة لأهم الأقمار.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <a href="https://wa.me/201000000000?text=مرحباً%20أحمد%20رمح،%20أريد%20الاستفسار%20عن%20خدمة%20تجهيز%20وبرمجة%20Enigma2" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>اطلب الخدمة الآن</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Portfolio Section – أعمالنا والمشاريع -->
+    <section id="portfolio" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-brand-400 text-sm font-bold uppercase tracking-wider px-4 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20">مشاريعنا المميزة</span>
+                <h2 class="text-3xl sm:text-4xl font-black">عملت على مشاريع رائدة في عالم Enigma2</h2>
+                <p class="text-slate-300 text-base sm:text-lg">استعرض المنصات والأدوات التي قمت بتطويرها لخدمة مجتمع التقنية الفضائية.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Project 1 -->
+                <div class="glass-card rounded-3xl p-8 border border-slate-700/80 flex flex-col justify-between group hover:border-brand-500/50 transition-all">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-brand-600/20 text-brand-400 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+                        <h3 class="text-xl font-black text-white">Online4Tech Main Website</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            الموقع الرسمي لمنصة Online4Tech لتقديم الخدمات التقنية، أحدث الأخبار، والحلول البرمجية لأجهزة الاستقبال.
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-slate-700/60 flex items-center justify-between">
+                        <span class="text-xs text-slate-400 font-medium">منصة رقمية</span>
+                        <a href="https://online4tech.github.io/online4Tech/" target="_blank" class="inline-flex items-center gap-2 text-brand-400 hover:text-brand-300 font-bold text-sm">
+                            <span>زيارة المشروع</span>
+                            <i class="fa-solid fa-external-link-alt text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="glass-card rounded-3xl p-8 border border-slate-700/80 flex flex-col justify-between group hover:border-cyan-500/50 transition-all">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-cyan-600/20 text-cyan-400 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-list-ol"></i>
+                        </div>
+                        <h3 class="text-xl font-black text-white">Enigma2 Channel List by Romeh</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            أشهر قائمة قنوات مرتبة ومنظمة بدقة لجميع الأقمار الصناعية لأنظمة Enigma2، مع تحديثات أسبوعية مستمرة.
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-slate-700/60 flex items-center justify-between">
+                        <span class="text-xs text-slate-400 font-medium">GitHub Repository</span>
+                        <a href="https://online4tech.github.io/Enigma2-Chanal-List-BYRomeh/" target="_blank" class="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-bold text-sm">
+                            <span>زيارة المشروع</span>
+                            <i class="fa-solid fa-external-link-alt text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="glass-card rounded-3xl p-8 border border-slate-700/80 flex flex-col justify-between group hover:border-emerald-500/50 transition-all">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-terminal"></i>
+                        </div>
+                        <h3 class="text-xl font-black text-white">Online4Tech Manager</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            أداة برمجية متطورة لإدارة أجهزة Enigma2، تثبيت البلجنات، سحب وقذف الإعدادات بكل سهولة وسرعة من الكمبيوتر.
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-slate-700/60 flex items-center justify-between">
+                        <span class="text-xs text-slate-400 font-medium">Desktop Tool</span>
+                        <a href="https://github.com/online4tech/Online4Tech-Manager" target="_blank" class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 font-bold text-sm">
+                            <span>زيارة المشروع</span>
+                            <i class="fa-solid fa-external-link-alt text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section – ليه تختار Online4Tech؟ -->
+    <section class="py-20 bg-dark-800/50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-brand-400 text-sm font-bold uppercase tracking-wider px-4 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20">لماذا نحن؟</span>
+                <h2 class="text-3xl sm:text-4xl font-black">ليه تختار Online4Tech؟</h2>
+                <p class="text-slate-300 text-base sm:text-lg">نحن نمثل الخيار الأول لكل عشاق أجهزة الاستقبال المتقدمة في الوطن العربي.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <div class="glass-card p-6 rounded-3xl border border-slate-700/80 space-y-4 text-center">
+                    <div class="w-12 h-12 mx-auto rounded-xl bg-brand-600/20 text-brand-400 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-medal"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">خبرة وتخصص</h3>
+                    <p class="text-slate-300 text-xs leading-relaxed">أكثر من 10 سنوات من العمل المستمر والاحترافية العالية في تكنولوجيا Enigma2.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-3xl border border-slate-700/80 space-y-4 text-center">
+                    <div class="w-12 h-12 mx-auto rounded-xl bg-cyan-600/20 text-cyan-400 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-gem"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">منتجات مختارة</h3>
+                    <p class="text-slate-300 text-xs leading-relaxed">أجهزة أصلية وكورية وألمانية مع ضمان الجودة الكاملة والتشغيل المستقر.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-3xl border border-slate-700/80 space-y-4 text-center">
+                    <div class="w-12 h-12 mx-auto rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">دعم فني فوري</h3>
+                    <p class="text-slate-300 text-xs leading-relaxed">فريق دعم متواجد دائماً لمساعدتك في حل أي مشكلة تواجهك مع جهازك.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-3xl border border-slate-700/80 space-y-4 text-center">
+                    <div class="w-12 h-12 mx-auto rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">حلول متكاملة</h3>
+                    <p class="text-slate-300 text-xs leading-relaxed">من الأجهزة وحتى البرمجة والسكينات وقوائم القنوات في مكان واحد.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews Section – آراء العملاء -->
+    <section id="reviews" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-brand-400 text-sm font-bold uppercase tracking-wider px-4 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20">آراء العملاء</span>
+                <h2 class="text-3xl sm:text-4xl font-black">ماذا يقول عملاؤنا عنا؟</h2>
+                <p class="text-slate-300 text-base sm:text-lg">شهادات حقيقية من عشاق التقنية والعملاء الذين تتعاملنا معهم.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="glass-card p-8 rounded-3xl border border-slate-700/80 space-y-6">
+                    <div class="flex items-center gap-1 text-amber-400">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        "أحمد رمح شخص محترف جداً وصبور. ساعدني في برمجة جهاز Vu+ Ultimo وتثبيت أحدث السكينات وقوائم القنوات بدقة متناهية. أنصح بالتعامل معه بشدة."
+                    </p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-slate-700/60">
+                        <div class="w-10 h-10 rounded-full bg-brand-600/30 text-brand-400 flex items-center justify-center font-bold">م ع</div>
+                        <div>
+                            <div class="font-bold text-white text-sm">محمد عبد الله</div>
+                            <div class="text-xs text-slate-400">عميل جهاز Vu+</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl border border-slate-700/80 space-y-6">
+                    <div class="flex items-center gap-1 text-amber-400">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        "قائمة القنوات الخاصة بأحمد رمح (Enigma2 Channel List) هي الأفضل بدون منازع. مرتبة ومنظمة بطريقة تسهل الوصول لأي قناة بسرعة. شكراً Online4Tech."
+                    </p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-slate-700/60">
+                        <div class="w-10 h-10 rounded-full bg-cyan-600/30 text-cyan-400 flex items-center justify-center font-bold">خ م</div>
+                        <div>
+                            <div class="font-bold text-white text-sm">خالد محمود</div>
+                            <div class="text-xs text-slate-400">مستخدم Enigma2</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl border border-slate-700/80 space-y-6">
+                    <div class="flex items-center gap-1 text-amber-400">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        "خدمة عملاء رائعة ودعم فني سريع جداً عبر الواتساب. اشتريت جهاز Dreambox وتم تجهيزه بكل ما يحتاجه قبل الشحن. بارك الله فيك يا بشمهندس أحمد."
+                    </p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-slate-700/60">
+                        <div class="w-10 h-10 rounded-full bg-emerald-600/30 text-emerald-400 flex items-center justify-center font-bold">أ ك</div>
+                        <div>
+                            <div class="font-bold text-white text-sm">أحمد كريم</div>
+                            <div class="text-xs text-slate-400">عميل Dreambox</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section – الأسئلة الشائعة -->
+    <section id="faq" class="py-20 bg-dark-800/50 relative" x-data="{ openFaq: null }">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4 mb-16">
+                <span class="text-brand-400 text-sm font-bold uppercase tracking-wider px-4 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20">الأسئلة المتكررة</span>
+                <h2 class="text-3xl sm:text-4xl font-black">الأسئلة الشائعة</h2>
+                <p class="text-slate-300 text-base">إجابات واضحة عن كل ما تود معرفته حول أجهزة الاستقبال والخدمات.</p>
+            </div>
+
+            <div class="space-y-4">
+                
+                <!-- FAQ 1 -->
+                <div class="glass-card rounded-2xl border border-slate-700/80 overflow-hidden">
+                    <button @click="openFaq = openFaq === 1 ? null : 1" class="w-full p-6 text-right font-bold text-white flex items-center justify-between gap-4">
+                        <span>ما هي أفضل أجهزة الاستقبال التي تنصح بها؟</span>
+                        <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="{ 'rotate-180': openFaq === 1 }"></i>
+                    </button>
+                    <div x-cloak x-show="openFaq === 1" x-transition class="px-6 pb-6 text-slate-300 text-sm leading-relaxed border-t border-slate-700/50 pt-4">
+                        ننصح وبقوة بأجهزة Vu+ الكورية وأجهزة Dreambox الألمانية نظراً لقوة معالجاتها، استقرارها التام، ودعمها الكامل لصور Enigma2 المتقدمة وجودة الصورة 4K الحقيقية.
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="glass-card rounded-2xl border border-slate-700/80 overflow-hidden">
+                    <button @click="openFaq = openFaq === 2 ? null : 2" class="w-full p-6 text-right font-bold text-white flex items-center justify-between gap-4">
+                        <span>كيف يمكنني الحصول على قائمة القنوات المحدثة؟</span>
+                        <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="{ 'rotate-180': openFaq === 2 }"></i>
+                    </button>
+                    <div x-cloak x-show="openFaq === 2" x-transition class="px-6 pb-6 text-slate-300 text-sm leading-relaxed border-t border-slate-700/50 pt-4">
+                        يمكنك تحميل أحدث قوائم القنوات المجانية مباشرة من صفحة مشروعنا على GitHub (Enigma2 Channel List by Romeh) أو التواصل معنا عبر واتساب للحصول على أحدث ملف محدث مرتب للأقمار.
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="glass-card rounded-2xl border border-slate-700/80 overflow-hidden">
+                    <button @click="openFaq = openFaq === 3 ? null : 3" class="w-full p-6 text-right font-bold text-white flex items-center justify-between gap-4">
+                        <span>هل توفرون دعماً فنياً بعد الشراء؟</span>
+                        <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="{ 'rotate-180': openFaq === 3 }"></i>
+                    </button>
+                    <div x-cloak x-show="openFaq === 3" x-transition class="px-6 pb-6 text-slate-300 text-sm leading-relaxed border-t border-slate-700/50 pt-4">
+                        نعم بالتأكيد! نحن نقدم دعماً فنياً مستمراً لجميع عملائنا عبر الواتساب لمساعدتكم في ضبط الإعدادات، تحديث الصور، وحل أي مشاكل تقنية قد تواجهكم.
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="glass-card rounded-2xl border border-slate-700/80 overflow-hidden">
+                    <button @click="openFaq = openFaq === 4 ? null : 4" class="w-full p-6 text-right font-bold text-white flex items-center justify-between gap-4">
+                        <span>كيف يمكنني طلب جهاز أو خدمة برمجية؟</span>
+                        <i class="fa-solid fa-chevron-down transition-transform duration-300" :class="{ 'rotate-180': openFaq === 4 }"></i>
+                    </button>
+                    <div x-cloak x-show="openFaq === 4" x-transition class="px-6 pb-6 text-slate-300 text-sm leading-relaxed border-t border-slate-700/50 pt-4">
+                        بكل بساطة يمكنك الضغط على زر الواتساب العائم أو التواصل معنا عبر نموذج الاتصال أسفل الموقع وسنقوم بالرد عليك فوراً لتلبية طلبك.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section – تواصل معنا -->
+    <section id="contact" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-brand-400 text-sm font-bold uppercase tracking-wider px-4 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20">تواصل معنا</span>
+                <h2 class="text-3xl sm:text-4xl font-black">جاهز لنرتقي بأجهزتك إلى المستوى التالي؟</h2>
+                <p class="text-slate-300 text-base sm:text-lg">تواصل معنا اليوم وسنقوم بالرد على استفساراتكم في أسرع وقت.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Contact Info -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="glass-card p-8 rounded-3xl border border-slate-700/80 space-y-6">
+                        <h3 class="text-2xl font-black text-white">معلومات التواصل</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            يسعدنا تلقي طلباتكم واستفساراتكم طوال أيام الأسبوع عبر القنوات التالية:
+                        </p>
+
+                        <div class="space-y-4 pt-2">
+                            <a href="https://wa.me/201000000000" target="_blank" class="flex items-center gap-4 p-4 rounded-2xl bg-slate-800/50 border border-slate-700/50 hover:border-emerald-500/50 transition-all group">
+                                <div class="w-12 h-12 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-slate-400">تواصل مباشر واتساب</div>
+                                    <div class="font-bold text-white text-base" dir="ltr">+20 100 000 0000</div>
+                                </div>
+                            </a>
+
+                            <a href="https://online4tech.github.io/online4Tech/" target="_blank" class="flex items-center gap-4 p-4 rounded-2xl bg-slate-800/50 border border-slate-700/50 hover:border-brand-500/50 transition-all group">
+                                <div class="w-12 h-12 rounded-xl bg-brand-600/20 text-brand-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-globe"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-slate-400">الموقع الرسمي</div>
+                                    <div class="font-bold text-white text-sm">online4tech.github.io</div>
+                                </div>
+                            </a>
+
+                            <a href="https://facebook.com" target="_blank" class="flex items-center gap-4 p-4 rounded-2xl bg-slate-800/50 border border-slate-700/50 hover:border-blue-500/50 transition-all group">
+                                <div class="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-slate-400">صفحة الفيسبوك</div>
+                                    <div class="font-bold text-white text-sm">Online4Tech Official</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-7">
+                    <form @submit.prevent="showToast('تم إرسال رسالتك بنجاح! سيتم التواصل معك قريباً.')" class="glass-card p-8 sm:p-10 rounded-3xl border border-slate-700/80 space-y-6">
+                        <h3 class="text-2xl font-black text-white">أرسل لنا رسالة</h3>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="block text-xs font-bold text-slate-300">الاسم الكامل</label>
+                                <input type="text" required class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-500 transition-colors" placeholder="أدخل اسمك هنا">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-xs font-bold text-slate-300">رقم الهاتف أو الواتساب</label>
+                                <input type="text" required class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-500 transition-colors" placeholder="رقم الهاتف">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-300">نوع الخدمة أو الاستفسار</label>
+                            <select class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-500 transition-colors">
+                                <option>شراء جهاز استقبال (Vu+ / Dreambox)</option>
+                                <option>برمجة وتحديث Enigma2</option>
+                                <option>قوائم القنوات والسكينات</option>
+                                <option>دعم فني وصيانة</option>
+                                <option>استفسار عام</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-300">الرسالة</label>
+                            <textarea rows="4" required class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-500 transition-colors" placeholder="اكتب تفاصيل طلبك أو استفسارك هنا..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-cyan-600 hover:from-brand-500 hover:to-cyan-500 text-white font-bold py-4 rounded-xl shadow-xl shadow-brand-600/30 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>إرسال الرسالة</span>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-900 border-t border-slate-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-cyan-500 flex items-center justify-center text-white font-black text-lg shadow-lg">
+                        O4T
+                    </div>
+                    <div>
+                        <span class="text-lg font-black text-white">Online4Tech</span>
+                        <span class="block text-xs text-slate-400">بواسطة أحمد رمح • خليك دايماً أونلاين</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-6 text-sm text-slate-400 font-medium">
+                    <a href="#about" class="hover:text-brand-400 transition-colors">من نحن</a>
+                    <a href="#services" class="hover:text-brand-400 transition-colors">خدماتنا</a>
+                    <a href="#products" class="hover:text-brand-400 transition-colors">منتجاتنا</a>
+                    <a href="#portfolio" class="hover:text-brand-400 transition-colors">مشاريعنا</a>
+                    <a href="#contact" class="hover:text-brand-400 transition-colors">تواصل معنا</a>
+                </div>
+
+                <div class="text-xs text-slate-500 text-center md:text-left">
+                    جميع الحقوق محفوظة &copy; 2025 Online4Tech <br> مؤسس الموقع: أحمد رمح
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
